@@ -68,7 +68,7 @@ HashMap <String,Veterinario> listaMascotas= new HashMap();
         initComponents();
                 try{
             Class.forName("com.mysql.jdbc.Driver");
-            conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/veterinaria5","root","root");
+            conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/veterinaria6","root","root");
             estado = conexion.createStatement();
             resultadoConsulta = estado.executeQuery("Select * from mascotas");
             //cargo el resultado de la query en mi hashmap                    
@@ -101,6 +101,7 @@ HashMap <String,Veterinario> listaMascotas= new HashMap();
   /////////////////////////////////////////
         escribeDatos();
         System.out.println(resultadoConsulta);
+        this.setVisible(false);
     }
     
 
@@ -149,6 +150,10 @@ HashMap <String,Veterinario> listaMascotas= new HashMap();
         jLabelEspecie = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -440,6 +445,24 @@ HashMap <String,Veterinario> listaMascotas= new HashMap();
 
         jTabbedPane1.addTab("MASCOTAS", jPanel2);
 
+        jMenu1.setText("File");
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem1.setText("Cerrar Sesion");
+        jMenuItem1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jMenuItem1MousePressed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -452,7 +475,7 @@ HashMap <String,Veterinario> listaMascotas= new HashMap();
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(73, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -486,6 +509,14 @@ HashMap <String,Veterinario> listaMascotas= new HashMap();
     private void jbotonBuscar1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbotonBuscar1MousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbotonBuscar1MousePressed
+
+    private void jMenuItem1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MousePressed
+        // TODO add your handling code here:
+        VentanaParaIniciar inicio=new VentanaParaIniciar();
+        this.setVisible(false);
+        inicio.setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItem1MousePressed
 
     /**
      * @param args the command line arguments
@@ -546,6 +577,10 @@ HashMap <String,Veterinario> listaMascotas= new HashMap();
     private javax.swing.JLabel jLabelEspecie;
     private javax.swing.JLabel jLabelFechaN;
     private javax.swing.JLabel jLabelRaza;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTabbedPane jTabbedPane1;
