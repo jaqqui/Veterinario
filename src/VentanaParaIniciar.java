@@ -1,3 +1,11 @@
+
+import java.awt.Toolkit;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -6,15 +14,59 @@
 
 /**
  *
- * @author xp
+ * @author Jiaqi
  */
 public class VentanaParaIniciar extends javax.swing.JFrame {
+//Declaracion de variables
+    Connection conexion;    //Almacena la conexion de la BBDD
+    Statement estado;       //Almacena el estado de la conexion
+    ResultSet resultado;    //Almacena el resultado de la consulta a la BBDD
+//    ArrayList<String> listaUsuarios = new ArrayList();
+    String usuario, password;
+    int logueado=0;
+    VentanaUsuario vUsuario = new VentanaUsuario();
+   String [] datosUsuarios= new String[5];
+    Toolkit t= Toolkit.getDefaultToolkit();
+    
 
+    private void pedirUsuario() {
+        try {
+             Class.forName("com.mysql.jdbc.Driver");
+            conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1/clientes","root","root");
+            estado = conexion.createStatement();
+            //Realizo la consulta
+            resultado = estado.executeQuery("SELECT * FROM clientes.usuarios where nombre = "
+                                            +usuario+" AND DNI = "+ password );
+            
+            resultado.last();
+            logueado= resultado.getRow();
+            
+            datosUsuarios[0]= resultado.getString("DNI");
+            datosUsuarios[1]= resultado.getString("Nombre");
+        
+            System.out.println("datps");
+//            vUsuario.idUser= datosUsuarios[0];
+            
+            
+
+        } catch (ClassNotFoundException ex) {
+            System.out.println("NO SE HA ENCONTRADO EL DRIVER");
+        } catch (SQLException ex) {
+            if(logueado==0){
+                System.out.println("User no valido");
+                jDialog1.setSize(350, 225);
+                jDialog1.setVisible(true);
+            }else{
+             System.out.println("NO SE HA PODIDO CONECTAR");
+            }
+        }
+    }
     /**
      * Creates new form VentanaParaIniciar
      */
     public VentanaParaIniciar() {
         initComponents();
+         this.setTitle("clientes");
     }
 
     /**
@@ -160,9 +212,19 @@ public class VentanaParaIniciar extends javax.swing.JFrame {
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
         // TODO add your handling code here:
-        jDialog1.setVisible(true);
-        jTextField1.setText("");
-        jPasswordField1.setText("");
+           usuario = jTextField1.getText();
+        password = String.valueOf(jPasswordField1.getPassword());
+        pedirUsuario();
+        if(logueado==1){
+            System.out.println("Usuario logueado");
+            
+             vUsuario.setTitle(usuario);
+            vUsuario.setVisible(false);
+           this.setVisible(true);
+//            vUsuario.jLabel1.setText("Bienvenida: "+datosUsuarios[1] + " " + datosUsuarios[2]);
+//            vUsuario.usuario= usuario;
+//             vUsuario.idUser= datosUsuarios[0];
+        }
         
     }//GEN-LAST:event_jButton1MousePressed
 
