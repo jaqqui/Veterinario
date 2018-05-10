@@ -238,16 +238,20 @@ public class VentanaParaIniciar extends javax.swing.JFrame {
         String password = jPasswordField1.getText();
         String username = jTextField1.getText();
         //aqui pongo la contraseña y usuario que quiera poner en la interfaz
-        if(password.contains("coolestguy") && (username.contains("AlvaroSanz")
-                || (password.contains("niceguy") && (username.contains("JiaqiQi"))))){
+        if((password.contains("coolestguy") && (username.contains("AlvaroSanz")))
+                || ((password.contains("niceguy") && (username.contains("JiaqiQi"))))){
             jTextField1.setText(null);
             jPasswordField1.setText(null);
-            System.out.println("Usuario logueado");//que te muestre por pantalla si se ha logeado
             new VentanaUsuario().setVisible(true);
+            System.out.println("Usuario logueado");//que te muestre por pantalla si se ha logeado
+           
             
         }
+        else{/*que ponga error*/
+            System.out.println("Usuario no logueado");
+        }
         
-        //System.out.println("Usuario no logueado");
+        
         /***********************************************/
         /*esto lo ha puesto jiaqi, solo un asiatico lo entinede*/
 //        usuario = jTextField1.getText();
