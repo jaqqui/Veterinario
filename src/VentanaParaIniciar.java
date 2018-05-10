@@ -249,6 +249,7 @@ public class VentanaParaIniciar extends javax.swing.JFrame {
         }
         else{/*que ponga error*/
             System.out.println("Usuario no logueado");
+             jDialog1.setVisible(true);
         }
         
         
