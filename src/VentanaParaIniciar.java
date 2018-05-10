@@ -1,5 +1,6 @@
 
 import java.awt.Toolkit;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -53,7 +54,7 @@ public class VentanaParaIniciar extends javax.swing.JFrame {
             System.out.println("NO SE HA ENCONTRADO EL DRIVER");
         } catch (SQLException ex) {
             if(logueado==0){
-                System.out.println("User no valido");
+                System.out.println("User incorrecto");
                 jDialog1.setSize(350, 225);
                 jDialog1.setVisible(true);
             }else{
@@ -61,6 +62,10 @@ public class VentanaParaIniciar extends javax.swing.JFrame {
             }
         }
     }
+    
+//    private void systemExit(){
+//        WindowEvent winCloseng = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
+//    }
     /**
      * Creates new form VentanaParaIniciar
      */
@@ -89,9 +94,9 @@ public class VentanaParaIniciar extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         jDialog1.setMinimumSize(new java.awt.Dimension(400, 400));
-        jDialog1.setPreferredSize(new java.awt.Dimension(450, 450));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/800px_COLOURBOX15287080.jpg"))); // NOI18N
 
@@ -161,7 +166,20 @@ public class VentanaParaIniciar extends javax.swing.JFrame {
         });
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton2.setText("BORRAR");
+        jButton2.setText("EXIT");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButton2MousePressed(evt);
+            }
+        });
+
+        jButton4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton4.setText("RESET");
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButton4MousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -181,7 +199,8 @@ public class VentanaParaIniciar extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -195,7 +214,9 @@ public class VentanaParaIniciar extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -212,20 +233,37 @@ public class VentanaParaIniciar extends javax.swing.JFrame {
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
         // TODO add your handling code here:
-           usuario = jTextField1.getText();
-        password = String.valueOf(jPasswordField1.getPassword());
-        pedirUsuario();
-        if(logueado==1){
-            System.out.println("Usuario logueado");
+        /*************esto es para poder logearme*******/
+       
+        String password = jPasswordField1.getText();
+        String username = jTextField1.getText();
+        //aqui pongo la contraseña y usuario que quiera poner en la interfaz
+        if(password.contains("coolestguy") && (username.contains("AlvaroSanz")
+                || (password.contains("niceguy") && (username.contains("JiaqiQi"))))){
+            jTextField1.setText(null);
+            jPasswordField1.setText(null);
+            System.out.println("Usuario logueado");//que te muestre por pantalla si se ha logeado
+            new VentanaUsuario().setVisible(true);
             
-             vUsuario.setTitle(usuario);
-            vUsuario.setVisible(false);
-           this.setVisible(true);
-//            vUsuario.jLabel1.setText("Bienvenida: "+datosUsuarios[1] + " " + datosUsuarios[2]);
-//            vUsuario.usuario= usuario;
-//             vUsuario.idUser= datosUsuarios[0];
         }
         
+        //System.out.println("Usuario no logueado");
+        /***********************************************/
+        /*esto lo ha puesto jiaqi, solo un asiatico lo entinede*/
+//        usuario = jTextField1.getText();
+//        password = String.valueOf(jPasswordField1.getPassword());
+//        pedirUsuario();
+//        if(logueado==1){
+//            System.out.println("Usuario logueado");
+//            
+//             vUsuario.setTitle(usuario);
+//            vUsuario.setVisible(false);
+//           this.setVisible(true);
+////            vUsuario.jLabel1.setText("Bienvenida: "+datosUsuarios[1] + " " + datosUsuarios[2]);
+////            vUsuario.usuario= usuario;
+////            vUsuario.idUser= datosUsuarios[0];
+//        }
+//        
     }//GEN-LAST:event_jButton1MousePressed
 
     private void jButton3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MousePressed
@@ -233,6 +271,20 @@ public class VentanaParaIniciar extends javax.swing.JFrame {
         jDialog1.setVisible(false);
         this.setVisible(true);
     }//GEN-LAST:event_jButton3MousePressed
+
+    private void jButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MousePressed
+        /*para salir de la app*/
+        System.exit(0);
+        /*para resetear los valores*/
+//        jTextField1.setText(null);
+//        jPasswordField1.setText(null);
+    }//GEN-LAST:event_jButton2MousePressed
+
+    private void jButton4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MousePressed
+        // TODO add your handling code here:
+        jTextField1.setText(null);
+        jPasswordField1.setText(null);
+    }//GEN-LAST:event_jButton4MousePressed
 
     /**
      * @param args the command line arguments
@@ -273,6 +325,7 @@ public class VentanaParaIniciar extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -1,17 +1,18 @@
 
 
 import codigo.Veterinario;
-import java.awt.Image;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
+import static javafx.scene.control.ButtonType.OK;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -22,18 +23,20 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author JiaQi
+ * @author JiaQi feat. alvaro
  * 
  */
 public class VentanaUsuario extends javax.swing.JFrame {
  private int total_animales=0;
 //  private ResultSet buscador;
  private int contador=0;
-  private Connection conexion;
-  private ResultSet resultadoConsulta;
-  private Statement estado;
-  private String usuario;
-   private String idUser;
+ private Connection conexion;
+ private ResultSet resultadoConsulta;
+ private Statement estado;
+ private String usuario;
+ private String idUser;
+ private JPasswordField passwordField;
+ 
    
   /**
      * Creates new form VentanaUsuario
@@ -41,11 +44,12 @@ public class VentanaUsuario extends javax.swing.JFrame {
   ////////////////////////////////////////////////////////
   
 HashMap <String,Veterinario> listaMascotas= new HashMap();
+    private Component controllingFrame;
 
 //////////////////////////////////////////////////////////
 //        total_pokemons = listaPokemons.size();
 //        //////////////////////////////////////////////
-//       jLabel17.setVisible(false);
+//        jLabel17.setVisible(false);
 //        jLabel15.setIcon(devuelveElPokemonQueEstaEnLaPosicion2(0));
 //        escribeDatos();
 //        jLabel15.setVisible(false);
@@ -70,6 +74,59 @@ HashMap <String,Veterinario> listaMascotas= new HashMap();
         }
         
     }
+ /* ANTIGUO CODIGO PARA LA CONTRASEÑA*/
+// /*la contraseña*/
+//    public void Password(ActionEvent e) {
+//        String cmd = e.getActionCommand();
+//
+//        if (OK.equals(cmd)) { //Process the password.
+//            char[] input = passwordField.getPassword();
+//            if (isPasswordCorrect(input)) {
+//                JOptionPane.showMessageDialog(controllingFrame,
+//                    "Success! You typed the right password.");
+//            } else {
+//                JOptionPane.showMessageDialog(controllingFrame,
+//                    "Invalid password. Try again.",
+//                    "Error Message",
+//                    JOptionPane.ERROR_MESSAGE);
+//            }
+//
+//            //Zero out the possible password, for security.
+//            Arrays.fill(input, '0');
+//
+//            passwordField.selectAll();
+//            resetFocus();
+//        } else { //The user has asked for help.
+//            JOptionPane.showMessageDialog(controllingFrame,
+//                "You can get the password by searching this example's\n"
+//              + "source code for the string \"correctPassword\".\n"
+//              + "Or look at the section How to Use Password Fields in\n"
+//              + "the components section of The Java Tutorial.");
+//        }
+//    }
+        /**
+     * Checks the passed-in array against the correct password.
+     * After this method returns, you should invoke eraseArray
+     * on the passed-in array.
+     */
+    /* ANTIGUO CODIGO DE CONTRASEÑA*/
+//    private static boolean isPasswordCorrect(char[] input) {
+//        boolean isCorrect = true;
+//       // char[] correctPassword = { '5', '4', '2', '1', '2', '3', '7', '7', 'c' };
+//        char[] correctPassword = { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+//        
+//        if (input.length != correctPassword.length) {
+//            isCorrect = false;
+//        } else {
+//            isCorrect = Arrays.equals (input, correctPassword);
+//        }
+//
+//        //Zero out the password.
+//        Arrays.fill(correctPassword,'0');
+//
+//        return isCorrect;
+//    }
+      
    
     public VentanaUsuario() {
        
@@ -514,7 +571,7 @@ HashMap <String,Veterinario> listaMascotas= new HashMap();
                     .addComponent(jTextField24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addContainerGap(144, Short.MAX_VALUE))
         );
 
         jTextBuscador1.addActionListener(new java.awt.event.ActionListener() {
@@ -619,7 +676,7 @@ HashMap <String,Veterinario> listaMascotas= new HashMap();
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jInternalFrame6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 73, Short.MAX_VALUE))
+                        .addGap(0, 53, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -634,7 +691,7 @@ HashMap <String,Veterinario> listaMascotas= new HashMap();
         jMenu1.setText("File");
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setText("Cerrar Sesion");
+        jMenuItem1.setText("Cambiar Usuario");
         jMenuItem1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jMenuItem1MousePressed(evt);
@@ -665,9 +722,9 @@ HashMap <String,Veterinario> listaMascotas= new HashMap();
 
     private void jMenuItem1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MousePressed
         // TODO add your handling code here:
-        VentanaParaIniciar inicio=new VentanaParaIniciar();
-        this.setVisible(false);
-        inicio.setVisible(true);
+//        VentanaParaIniciar inicio=new VentanaParaIniciar();
+//        this.setVisible(false);
+//        inicio.setVisible(true);         
         
     }//GEN-LAST:event_jMenuItem1MousePressed
 
@@ -743,7 +800,14 @@ HashMap <String,Veterinario> listaMascotas= new HashMap();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaUsuario().setVisible(true);
+                new VentanaParaIniciar().setVisible(true);
+                
+           /*IF PARA QUE NO SALGA LA VENTANA USUARIO SIN LOGEARTE PRIMERO*/
+//               if(password.contains("12345") && (username.contains("veterinario"))){
+//                    
+//                }
+                new VentanaUsuario().setVisible(false);
+                
             }
         });
     }
@@ -754,16 +818,8 @@ HashMap <String,Veterinario> listaMascotas= new HashMap();
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JInternalFrame jInternalFrame1;
-    private javax.swing.JInternalFrame jInternalFrame2;
-    private javax.swing.JInternalFrame jInternalFrame3;
-    private javax.swing.JInternalFrame jInternalFrame4;
-    private javax.swing.JInternalFrame jInternalFrame5;
     private javax.swing.JInternalFrame jInternalFrame6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -772,28 +828,8 @@ HashMap <String,Veterinario> listaMascotas= new HashMap();
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
@@ -822,32 +858,24 @@ HashMap <String,Veterinario> listaMascotas= new HashMap();
     private javax.swing.JTextField jTextBuscador;
     private javax.swing.JTextField jTextBuscador1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField16;
-    private javax.swing.JTextField jTextField17;
-    private javax.swing.JTextField jTextField18;
-    private javax.swing.JTextField jTextField19;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField20;
     private javax.swing.JTextField jTextField21;
     private javax.swing.JTextField jTextField22;
     private javax.swing.JTextField jTextField23;
     private javax.swing.JTextField jTextField24;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JButton jbotonBuscar;
     private javax.swing.JButton jbotonBuscar1;
     private javax.swing.JLabel jlabelNombre;
     private javax.swing.JLabel jlabelSexo;
     // End of variables declaration//GEN-END:variables
+
+//    private boolean isPasswordCorrect(char[] input) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
+
+    private void resetFocus() {
+        passwordField.requestFocusInWindow();
+    }
 }
